@@ -51,7 +51,7 @@ resource "aws_instance" "jenkins" {
     "sudo systemctl enable docker",  # Enable Docker to start on boot
     "sudo systemctl start docker",   # Start Docker service
     "sudo usermod -aG docker ec2-user",  # Add ec2-user to docker group
-    "git clone https://@github.com/${var.github_repo_owner}/${var.github_repo_name}.git",
+    "git clone https://github.com/${var.github_repo_owner}/${var.github_repo_name}.git",
 	  "sudo curl -L https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",  # Download docker-compose binary
     "sudo chmod +x /usr/local/bin/docker-compose",  # Make it executable
     "cd ${var.github_repo_name} && sudo docker-compose up -d"

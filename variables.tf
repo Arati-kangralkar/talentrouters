@@ -15,7 +15,7 @@ variable "key_name" {
 }
 
 variable "github_repo_owner" {
-  description = "arati-k"
+  description = "Arati-kangralkar"
 }
 
 variable "github_repo_name" {
