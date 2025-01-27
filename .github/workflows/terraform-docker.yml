@@ -14,42 +14,50 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Terraform
+      # Step 2: Install Node.js (if not already installed)
+      - name: Install Node.js
+        run: |
+          curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+          sudo yum install -y nodejs
+
+      # Step 3: Debug Environment
+      - name: Debug Environment
+        run: |
+          node -v
+          npm -v
+          terraform -v
+
+      # Step 4: Set up Terraform
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.5.0 # Adjust to your required version
 
-      # Step 3: Initialize Terraform
+      # Step 5: Initialize Terraform
       - name: Terraform Init
         run: terraform init
 
-      # Step 4: Validate Terraform files
+      # Step 6: Validate Terraform files
       - name: Terraform Validate
         run: terraform validate
 
-      # Step 5: Plan Terraform deployment
+      # Step 7: Plan Terraform deployment
       - name: Terraform Plan
         run: terraform plan
 
-      # Step 6: Apply Terraform deployment
+      # Step 8: Apply Terraform deployment
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      # Step 7: Set up Docker
+      # Step 9: Set up Docker
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      # Step 8: Start Docker Compose services
+      # Step 10: Start Docker Compose services
       - name: Docker Compose Up
         run: docker-compose up -d --build
 
-      # Optional: Run tests or additional commands
-      # - name: Run Tests
-      #   run: |
-      #     docker-compose exec <service-name> <test-command>
-
-      # Step 9: Stop and clean up Docker Compose
+      # Step 11: Stop and clean up Docker Compose
       # - name: Docker Compose Down
       #   if: always()
       #   run: docker-compose down
